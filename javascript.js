@@ -42,10 +42,16 @@ function playRound(humanChoice, computerChoice) {
     }
 }
 
+function playGame() {
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+    playRound(getHumanChoice(), getComputerChoice());
+}
+
 let humanScore = 0;
 let computerScore = 0;
 
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
+playGame();
+console.log("Total Score:\nWins: " + humanScore + "\nLosses: " + computerScore + "\nTies: " + (5 - (humanScore + computerScore)));
