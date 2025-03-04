@@ -10,48 +10,90 @@ function getComputerChoice() {
     }
 }
 
-function getHumanChoice() {
-    return prompt("Rock, Paper, or Scissors? ").toLowerCase();
-}
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === "rock" && computerChoice === "rock") {
-        console.log("Tie!")
+        result.textContent = "Tie!";
     } else if (humanChoice === "rock" && computerChoice === "paper") {
-        console.log("You lose! Paper beats rock.");
+        result.textContent = "You lose! Paper beats rock.";
         computerScore++;
     } else if (humanChoice === "rock" && computerChoice === "scissors") {
-        console.log("You win! Rock beats scissors.");
+        result.textContent = "You win! Rock beats scissors.";
         humanScore++;
     } else if (humanChoice === "paper" && computerChoice === "rock") {
-        console.log("You win! Paper beats rock.");
+        result.textContent = "You win! Paper beats rock.";
         humanScore++;
     } else if (humanChoice === "paper" && computerChoice === "paper") {
-        console.log("Tie!");
+        result.textContent = "Tie!";
     } else if (humanChoice === "paper" && computerChoice === "scissors") {
-        console.log("You lose! Scissors beats paper.");
+        result.textContent = "You lose! Scissors beats paper.";
         computerScore++;
     } else if (humanChoice === "scissors" && computerChoice === "rock") {
-        console.log("You lose! Rock beats scissors.");
+        result.textContent = "You lose! Rock beats scissors.";
         computerScore++;
     } else if (humanChoice === "scissors" && computerChoice === "paper") {
-        console.log("You win! Scissors beats paper.");
+        result.textContent = "You win! Scissors beats paper.";
         humanScore++;
     } else if (humanChoice === "scissors" && computerChoice === "scissors") {
-        console.log("Tie!");
+        result.textContent = "Tie!";
     }
-}
-
-function playGame() {
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
-    playRound(getHumanChoice(), getComputerChoice());
+    count++;
+    if (humanScore === 5) {
+        result.textContent = "You are the winner of the game!";
+    } else if (computerScore === 5) {
+        result.textContent = "The computer is the winner of the game!";
+    }
 }
 
 let humanScore = 0;
 let computerScore = 0;
+let count = 0;
 
-playGame();
-console.log("Total Score:\nWins: " + humanScore + "\nLosses: " + computerScore + "\nTies: " + (5 - (humanScore + computerScore)));
+const body = document.querySelector("body");
+
+const rockButton = document.createElement("button");
+const paperButton = document.createElement("button");
+const scissorsButton = document.createElement("button");
+
+rockButton.textContent = "Rock";
+paperButton.textContent = "Paper";
+scissorsButton.textContent = "Scissors";
+
+body.appendChild(rockButton);
+body.appendChild(paperButton);
+body.appendChild(scissorsButton);
+
+const container = document.createElement("div");
+const wins = document.createElement("p");
+const losses = document.createElement("p");
+const ties = document.createElement("p");
+const result = document.createElement("p");
+container.textContent = "Total Score:";
+wins.textContent = "Wins: 0";
+losses.textContent = "Losses: 0";
+ties.textContent = "Ties: 0";
+
+container.appendChild(wins);
+container.appendChild(losses);
+container.appendChild(ties);
+container.appendChild(result)
+
+body.appendChild(container);
+
+rockButton.addEventListener("click", () => {
+    playRound("rock", getComputerChoice())
+    wins.textContent = "Wins: " + humanScore;
+    losses.textContent = "Losses: " + computerScore;
+    ties.textContent = "Ties: " + (count - humanScore - computerScore);
+});
+paperButton.addEventListener("click", () => {
+    playRound("paper", getComputerChoice())
+    wins.textContent = "Wins: " + humanScore;
+    losses.textContent = "Losses: " + computerScore;
+    ties.textContent = "Ties: " + (count - humanScore - computerScore);
+});
+scissorsButton.addEventListener("click", () => {
+    playRound("scissors", getComputerChoice())
+    wins.textContent = "Wins: " + humanScore;
+    losses.textContent = "Losses: " + computerScore;
+    ties.textContent = "Ties: " + (count - humanScore - computerScore);
+});
